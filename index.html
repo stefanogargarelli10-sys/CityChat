@@ -1,35 +1,23 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
+<html lang="it"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>CityChat</title>
-<style>body{margin:0;font-family:system-ui;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh}#s{opacity:.8}</style>
-</head>
-<body>
-<p id="s">Caricamento CityChat…</p>
+<style>body{margin:0;background:#0f172a;color:#e2e8f0;font-family:system-ui;display:flex;min-height:100vh;align-items:center;justify-content:center}</style>
+</head><body><p id="s">Caricamento CityChat…</p>
 <script>
-(async function () {
+(async function(){
   try {
-    var n = 6;
-    var parts = [];
-    for (var i = 0; i < n; i++) {
-      var res = await fetch('part' + i + '.txt', { cache: 'no-store' });
-      if (!res.ok) throw new Error('part ' + i + ' HTTP ' + res.status);
-      parts.push(await res.text());
-    }
-    var bin = atob(parts.join(''));
-    var bytes = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    var html = new TextDecoder('utf-8').decode(bytes);
-    document.open();
-    document.write(html);
-    document.close();
+    var a = await (await fetch('app0.b64',{cache:'no-store'})).text();
+    var b = await (await fetch('app1.b64',{cache:'no-store'})).text();
+    var bin = Uint8Array.from(atob((a+b).trim()), function(c){ return c.charCodeAt(0); });
+    var stream = new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'));
+    var html = await new Response(stream).text();
+    document.open(); document.write(html); document.close();
   } catch (e) {
-    document.getElementById('s').textContent = 'Errore caricamento: ' + e.message;
+    document.getElementById('s').textContent = 'Errore: ' + e.message;
     console.error(e);
   }
 })();
 </script>
-</body>
-</html>
+</body></html>
