@@ -1,5 +1,8 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/citychat-24-2.html" }
+  ]
 }

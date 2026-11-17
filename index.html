@@ -1,23 +1,12 @@
 <!DOCTYPE html>
-<html lang="it"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>CityChat</title>
-<style>body{margin:0;background:#0f172a;color:#e2e8f0;font-family:system-ui;display:flex;min-height:100vh;align-items:center;justify-content:center}</style>
-</head><body><p id="s">Caricamento CityChat…</p>
-<script>
-(async function(){
-  try {
-    var a = await (await fetch('app0.b64',{cache:'no-store'})).text();
-    var b = await (await fetch('app1.b64',{cache:'no-store'})).text();
-    var bin = Uint8Array.from(atob((a+b).trim()), function(c){ return c.charCodeAt(0); });
-    var stream = new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'));
-    var html = await new Response(stream).text();
-    document.open(); document.write(html); document.close();
-  } catch (e) {
-    document.getElementById('s').textContent = 'Errore: ' + e.message;
-    console.error(e);
-  }
-})();
-</script>
-</body></html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=./citychat-24-2.html">
+  <title>CityChat</title>
+  <script>location.replace('./citychat-24-2.html');</script>
+</head>
+<body>
+  <p><a href="./citychat-24-2.html">Apri CityChat</a></p>
+</body>
+</html>
